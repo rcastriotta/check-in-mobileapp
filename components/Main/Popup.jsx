@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Modal, View, Text, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import ValidateTotalCheckIns from '../../utils/ValidateTotalCheckIns';
+import GenerateKeywords from '../../utils/GenerateKeywords';
+
 // FIREBASE
 import { fs } from '../../firebase/config';
 import firebase from 'firebase/app';
@@ -65,7 +67,7 @@ const Popup = (props) => {
                         phoneNumber: userData.phone,
                         siteName: name,
                         userId: userData.uid,
-                        nameSearchValue: userData.name.toLowerCase().replace(/ /g, '')
+                        searchKeywords: GenerateKeywords(userData.name.toLowerCase(), userData.email.toLowerCase(), userData.phone.replace(/-/g, ''))
                     })
 
                     // update site info
@@ -89,7 +91,7 @@ const Popup = (props) => {
                                 email: userData.email,
                                 phoneNumber: userData.phone,
                                 userId: userData.uid,
-                                nameSearchValue: userData.name.toLowerCase().replace(/ /g, '')
+                                searchKeywords: GenerateKeywords(userData.name.toLowerCase(), userData.email.toLowerCase(), userData.phone.toString().replace(/-/g, ''))
                             })
                         }
                     })
